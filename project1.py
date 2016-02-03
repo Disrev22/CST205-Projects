@@ -15,10 +15,10 @@ pict7 = makePicture("7.png")
 pict8 = makePicture("8.png")
 pict9 = makePicture("9.png")
 
+#make empty picture with width and height of the project picts
 width = getWidth(pict1)
 height = getHeight(pict1)
 emptyPicts = makeEmptyPicture(width, height)
-show(emptyPict)
 #explore(pict1)
 
 
