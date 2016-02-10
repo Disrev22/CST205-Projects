@@ -3,6 +3,24 @@
 setMediaFolder("C:\\Project1Images")
 Folder = ["1.png","2.png", "3.png", "4.png", "5.png", "6.png", "7.png", "8.png", "9.png"]
 
+def pixelMedian(pixelList):
+  listLength = len(pixelList)
+  sortedValues = sorted(pixelList)
+  middleIndex = ((listLength + 1)/2)-1
+  return sortedValues[middleIndex]
+  
+#def makeNewColor(newRed, newGreen, newBlue, x, y, OutputImage):
+   #newColor = makeColor(newRed, newGreen, newBlue)
+   #ImagePixel = getPixel(OutputImage, x, y) 
+   #setRed(ImagePixel, newRed)
+   #setGreen(ImagePixel, newGreen)
+   #setBlue(ImagePixel, newBlue)
+   #setColor(ImagePixel, newColor)
+   #print newColor
+   #print ImagePixel
+   #return newColor
+
+
 #You need to define an empty lists to make use of functions starting at line 19
 pictures = []
 redPixelList = []
@@ -18,8 +36,6 @@ for pict in Folder:
 PictWidth = getWidth(image)
 PictHeight = getHeight(image)
 OutputImage = makeEmptyPicture(PictWidth, PictHeight)
-show(OutputImage)
-  
   
   
 redPixelAverage = 0
@@ -39,49 +55,32 @@ for x in range(0, PictWidth):
       redPixelList.append(red)
       greenPixelList.append(green)
       bluePixelList.append(blue)
+          
+
+    RedMedian = pixelMedian(redPixelList)
+    redPixelList = []
+    #redPixelList.append(RedMedian)
+    #print redPixelList
+
+    GreenMedian  = pixelMedian(greenPixelList)
+    greenPixelList = []
+    #greenPixelList.append(GreenMedian)
+    #print greenPixelList
+
+    BlueMedian = pixelMedian(bluePixelList)
+    bluePixelList = []
+    #bluePixelList.append(BlueMedian)
+    #print bluePixelList
       
-      
-      
-      #redPixelAverage += redPixelList[imageNumber]
-      #43601 sum of red pixels 
-      
-      
-#The median function below is something that I found via GitHub
-#at https://gist.github.com/ProProgrammer/6703163
-def len_even(y):
-  if len(y) % 2 == 0:
-    return True
-  else:
-    return False
+    #makeNewColor(RedMedian, GreenMedian, BlueMedian, x, y, OutputImage)
+    ImagePixel = getPixel(OutputImage, x, y) 
+    setRed(ImagePixel, GreenMedian)
+    setGreen(ImagePixel, GreenMedian)
+    setBlue(ImagePixel, BlueMedian)
 
 
-def median(x):
-  y = sorted(x)
-  if not len_even(y):
-    return y[(len(y) / 2)]
-  else:
-    mid_position1 = y[(len(y) / 2) - 1]
-    mid_position2 = y[(len(y) / 2)]
-    return (mid_position1 + mid_position2) / 2.0
+show(OutputImage)
 
-
-
-RedMedian = median(redPixelList)
-redPixelList = []
-redPixelList.append(RedMedian)
-
-
-GreenMedian  = median(greenPixelList)
-greenPixelList = []
-greenPixelList.append(GreenMedian)
-
-
-BlueMedian = median(bluePixelList)
-bluePixelList = []
-bluePixelList.append(BlueMedian)
-
-      
-    
       
     #stating the red/green/bluePixelList lists empty clears them of the values that were appended previously 
     #redPixelList = [] 
