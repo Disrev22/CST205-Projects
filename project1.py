@@ -1,30 +1,93 @@
-#Trying to working out an alternative way to getting the images
-
-#Using setMediaPath has worked so far, but is there a way 
-#to make it a little more condensed but still able 
-#able to access images 1 through 9?
-
-setMediaPath("C:\\Project1Images") 
-pict1 = makePicture("1.png")
-pict2 = makePicture("2.png")
-pict3 = makePicture("3.png")
-pict4 = makePicture("4.png")
-pict5 = makePicture("5.png")
-pict6 = makePicture("6.png")
-pict7 = makePicture("7.png")
-pict8 = makePicture("8.png")
-pict9 = makePicture("9.png")
-
-#make empty picture with width and height of the project picts
-width = getWidth(pict1)
-height = getHeight(pict1)
-emptyPicts = makeEmptyPicture(width, height)
-#explore(pict1)
 
 
-#Since we're supposed to find a way to remove the annoying tourist from the image 
-#I imagine figuring out how to remove him would be the first step
+setMediaFolder("C:\\Project1Images")
+Folder = ["1.png","2.png", "3.png", "4.png", "5.png", "6.png", "7.png", "8.png", "9.png"]
 
-#what are some of the ways we can go about selecting/isolating the pixels he's comprised of?
+#You need to define an empty lists to make use of functions starting at line 19
+pictures = []
+redPixelList = []
+greenPixelList = []
+bluePixelList = []
 
-#Given their variance, is there a way we can isolate the pixels within a specific RGB range?
+for pict in Folder:
+  image = makePicture(pict)
+  pictures.append(image) #this will add the pictures to a list
+
+  
+#makes a blank for the output image 
+PictWidth = getWidth(image)
+PictHeight = getHeight(image)
+OutputImage = makeEmptyPicture(PictWidth, PictHeight)
+show(OutputImage)
+  
+  
+  
+redPixelAverage = 0
+greenPixelAverage = 0
+bluePixelAverage = 0
+  
+for x in range(0, PictWidth):
+  for y in range(0, PictHeight):
+    for imageNumber in range(0,9):
+    
+      pixel = getPixel(pictures[imageNumber], x, y)
+      
+      red = getRed(pixel)
+      green = getGreen(pixel)
+      blue = getBlue(pixel)
+      
+      redPixelList.append(red)
+      greenPixelList.append(green)
+      bluePixelList.append(blue)
+      
+      
+      
+      #redPixelAverage += redPixelList[imageNumber]
+      #43601 sum of red pixels 
+      
+      
+#The median function below is something that I found via GitHub
+#at https://gist.github.com/ProProgrammer/6703163
+def len_even(y):
+  if len(y) % 2 == 0:
+    return True
+  else:
+    return False
+
+
+def median(x):
+  y = sorted(x)
+  if not len_even(y):
+    return y[(len(y) / 2)]
+  else:
+    mid_position1 = y[(len(y) / 2) - 1]
+    mid_position2 = y[(len(y) / 2)]
+    return (mid_position1 + mid_position2) / 2.0
+
+
+
+RedMedian = median(redPixelList)
+redPixelList = []
+redPixelList.append(RedMedian)
+
+
+GreenMedian  = median(greenPixelList)
+greenPixelList = []
+greenPixelList.append(GreenMedian)
+
+
+BlueMedian = median(bluePixelList)
+bluePixelList = []
+bluePixelList.append(BlueMedian)
+
+      
+    
+      
+    #stating the red/green/bluePixelList lists empty clears them of the values that were appended previously 
+    #redPixelList = [] 
+    #greenPixelList = []
+    #bluePixelList = []
+    
+
+    
+
